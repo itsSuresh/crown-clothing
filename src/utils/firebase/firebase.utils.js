@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {getAuth,signInWithRedirect, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword} from 'firebase/auth';
+import {getAuth,signInWithRedirect, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth';
 // all these are used to create a google signin
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -75,4 +75,11 @@ export const createUserAuthWithEmailAndPassword = async (email,password) =>{
         return;
 
     return await createUserWithEmailAndPassword(auth,email,password);
+}
+
+export const signInAuthWithEmailAndPassword = async (email,password) =>{
+    if(!email || !password)
+    return;
+
+    return await signInWithEmailAndPassword(auth,email,password);
 }
