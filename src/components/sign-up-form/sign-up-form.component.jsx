@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserAuthWithEmailAndPassword, getUserDocFromAuth } from "../../utils/firebase/firebase.utils";
+import { createUserAuthWithEmailAndPassword, createUserDocFromAuth } from "../../utils/firebase/firebase.utils";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import './sign-up.styles.scss';
@@ -15,7 +15,8 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -34,7 +35,8 @@ const SignUpForm = () => {
 
     try{
       const response =await createUserAuthWithEmailAndPassword(email,password);
-      const userDocRef = getUserDocFromAuth(response.user,{displayName})
+      
+      const userDocRef = createUserDocFromAuth(response.user,{displayName})
       clearFields();
     }catch(error){
       if(error.code === 'auth/email-already-in-use')
@@ -77,7 +79,6 @@ const SignUpForm = () => {
         Sign-up
       </Button>
       </form>
-      {console.log("sign-up form executed twice")}
     </div>
   );
 };
